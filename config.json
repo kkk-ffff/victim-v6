@@ -1,0 +1,10 @@
+{
+  "version": {
+    "text": "6.0.0-beta",
+    "num": 6001
+  },
+  "api": "https://victim-v6.vercel.app",
+  "app": {
+    "package": ["com.superking.parchisi.star", "com.dts.freefireth"]
+  }
+}
