@@ -242,32 +242,19 @@
             function getStatusText(status) {
               switch (parseInt(status)) {
                 case -1: return 'All';
-                  case 1: return 'Checked';
-                    case 2: return 'Doing';
-                      case 3: return 'Nothing';
-                        case 4: return 'Future';
-                          default: return 'None';
-                          }
-                      }
-
-                      function sanitize(input) {
-                        const tempDiv = document.createElement('div');
-                        tempDiv.textContent = input;
-                        return tempDiv.innerText.trim();
-                    }
-
-                    function decode(text) {
-                      try {
-                        return decodeURIComponent(text.replace(/\+/g,
-                          ' '));
-                    } catch (error) {
-                      return text.trim();
-                  }
+                case 1: return 'Checked';
+                case 2: return 'Doing';
+                case 3: return 'Nothing';
+                case 4: return 'Future';
+                default: return 'None';
               }
+            }
 
-              function unicodeToFlag(unicodeString) {
-                return unicodeString.replace(/\\u([0-9A-Fa-f]{4})/g, (_,
-                  code) => String.fromCodePoint(parseInt(code, 16)));
+                  function sanitize(input) {
+                    const tempDiv = document.createElement('div');
+                    tempDiv.textContent = input;
+                    return tempDiv.innerText.trim();
+                  }
               }
 
               function addCopyListeners() {
@@ -276,13 +263,13 @@
                     () => {
                       navigator.clipboard.writeText(cell.textContent);
                   });
-                
+                });
                 document.querySelectorAll('input.click').forEach(cell => {
                 cell.addEventListener('click', () => {
                       navigator.clipboard.writeText(cell.value);
                   });
               });
-          })
+          
       }
     }
 
